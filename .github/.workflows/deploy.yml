@@ -1,0 +1,32 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https:\\nu-courses-scraping.ct.ws
+    steps:
+      - name: Substitute Secrets
+        uses: Lambdaspire/action-substitute-secrets-in-file@v1.1.0
+        with:
+          file: src/index.php
+          tokenPattern: ${TOKEN}
+          secretsJson: ${{ toJSON(secrets) }}
+
+      - name: Deploy to server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: src/
+          server-dir: htdocs/
