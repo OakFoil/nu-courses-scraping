@@ -15,6 +15,9 @@ jobs:
       name: production
       url: https:\\nu-courses-scraping.ct.ws
     steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+
       - name: Substitute Secrets
         uses: Lambdaspire/action-substitute-secrets-in-file@v1.1.0
         with:
