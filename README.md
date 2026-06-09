@@ -4,7 +4,28 @@ A simple php script to scrape Nile University Courses
 
 ## Usage
 
-To use it simply put in on any web server.
+To use it
+
+1. install dependencies
+
+   ```bash
+   pip install -r requirements.txt
+   python -m playwright install --with-deps
+   ```
+
+2. put your username and password into the python script and run it to get your cookie
+
+   ```bash
+   python main.py
+   ```
+
+   - The python script will output something like
+
+      ```json
+      {"COOKIE": $COOKIE}
+      ```
+
+3. Get the $COOKIE part and place it in the php script then simply put in on any web server.
 
 When any client goes to the web page, the web server will respond with json containing all data about the courses
 

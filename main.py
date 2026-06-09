@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 import json
 
 with sync_playwright() as p:
@@ -9,11 +9,15 @@ with sync_playwright() as p:
 
     page.fill("#txtUsername", "${USERNAME}")
     page.click("#btnNext")
-    page.wait_for_load_state("networkidle")
-    if (page.url != "https://register.nu.edu.eg/PowerCampusSelfService"):
+
+    try:
+       page.wait_for_url("https://register.nu.edu.eg/PowerCampusSelfService", timeout=500)
+    except PlaywrightTimeoutError:
       page.fill("#txtPassword", "${PASSWORD}")
       page.click("#btnSignIn")
-    page.wait_for_selector("#mainContent")
+
+    page.wait_for_url("https://register.nu.edu.eg/PowerCampusSelfService")
+    page.wait_for_load_state("networkidle")
 
     cookies = page.context.cookies("https://register.nu.edu.eg")
     cookie_header = "; ".join([f"{cookie['name']}={cookie['value']}" for cookie in cookies]) # pyright: ignore[reportTypedDictNotRequiredAccess]
