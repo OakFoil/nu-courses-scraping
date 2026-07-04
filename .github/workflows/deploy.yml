@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 5 * * *' # 8:00 Cairo AM
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
