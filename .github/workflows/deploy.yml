@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 5 * * *' # 8:00 Cairo AM
+    - cron: '0 5 * * *' # 8:00 AM Cairo
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -59,4 +59,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: src/
-          server-dir: htdocs/
+          server-dir: nu-courses.rf.gd/htdocs/
