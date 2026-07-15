@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://sched-gen.rf.gd/api
+      url: https://nu-courses.rf.gd
     steps:
       - name: Clone Repository
         uses: actions/checkout@v5
@@ -59,4 +59,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: src/
-          server-dir: htdocs/api/
+          server-dir: nu-courses.rf.gd/htdocs/
